@@ -1,35 +1,61 @@
 /* eslint-disable */
-import React from "react";
+import React, {useState, useHistory} from "react";
+import TextField from '@material-ui/core/TextField';
+import axios from 'axios';
+import qs from 'qs';
+import {withRouter} from 'react-router-dom';
+
+const history = useHistory();
 
 function SingUp() {
+
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [ID, setID] = useState('');
+    const [pw, setPw] = useState('');
+    
+    
+
+    const createMember=(e)=>{
+       
+        e.preventDefault();
+        const member ={
+            
+            name : name,
+            email : email,
+            ID : ID,
+            pw : pw,
+        }
+        console.log(member);
+         axios.post('/addMember',qs.stringify(member))
+         .then((result)=>{
+            console.log(result);
+            history.push('/');
+            })
+         .catch((err)=>{console.log(err)})
+    }
+
+       
+  
     
         return (
-            <form>
+            <form onSubmit={createMember}>
                 <h3>Register</h3>
 
                 <div className="form-group">
-                    <label>First name</label>
-                    <input type="text" className="form-control" placeholder="First name" />
+                    <TextField id="standard-basic" label="Name" name="name" onChange={e =>setName(e.target.value)} />
                 </div>
 
                 <div className="form-group">
-                    <label>Last name</label>
-                    <input type="text" className="form-control" placeholder="Last name" />
+                    <TextField id="standard-basic" label="Email" name="email" onChange={e =>setEmail(e.target.value)} />
                 </div>
 
                 <div className="form-group">
-                    <label>Email</label>
-                    <input type="email" className="form-control" placeholder="Enter email" />
+                    <TextField id="standard-basic" label="ID" name="ID" onChange={e =>setID(e.target.value)}/>    
                 </div>
 
                 <div className="form-group">
-                    <label>ID</label>
-                    <input type="id" className="form-control" placeholder="Enter ID" />
-                </div>
-
-                <div className="form-group">
-                    <label>Password</label>
-                    <input type="password" className="form-control" placeholder="Enter password" />
+                    <TextField id="standard-basic" label="Password" name="pw" onChange={e =>setPw(e.target.value)}/>    
                 </div>
 
                 <button type="submit" className="btn btn-dark btn-lg btn-block">Register</button>
@@ -37,6 +63,12 @@ function SingUp() {
                     Already registered <a href="#">log in?</a>
                 </p>
             </form>
+
+            
         );
     }
-    export default SingUp;
+    export default withRouter(SingUp);
+
+
+
+  

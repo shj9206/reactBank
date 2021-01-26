@@ -10,11 +10,11 @@ var db;
 MongoClient.connect('mongodb+srv://reactBank:1q2w3e4r@cluster0.30535.mongodb.net/reactBank?retryWrites=true&w=majority',function(에러,client){
     //db연결되면 서버 활성화
     if(에러) {return console.log(에러)}
-    db = client.db('reactBank');
+    db = client.db('react-bank');
    
     const http = require('http').createServer(app);
-        http.listen(8080, function() {
-        console.log('listening on 8080')
+        http.listen(8081, function() {
+        console.log('listening on 8081')
     });
 })
 //MongoDB 이 URL로 접속요청
@@ -37,3 +37,28 @@ app.get('*', function(요청, 응답){
     });
 
 //server.js에는 axios나 ajax요청에 대한 DB입출력 코드를 작성한다.
+
+
+
+//signUp의 회원 meber등록
+app.post('/addMember', function(요청, 응답){
+    
+    db.collection('counter').findOne({name : '게시물갯수'}, function(에러,결과){
+        console.log(결과.totalPost)
+        console.log("data :"+요청.body)
+        var 총게시물갯수 = 결과.totalPost;
+        
+        db.collection('member').insertOne({ name : 요청.body.name, email : 요청.body.email, id : 요청.body.ID, pw : 요청.body.pw}, function(에러,결과){
+            if(에러){console.log("error :"+에러)}
+            else {
+                console.log('저장완료');
+                응답.redirect();
+            };
+                   
+           
+        });
+    });
+    
+});  
+
+
