@@ -5,7 +5,7 @@ import axios from 'axios';
 import qs from 'qs';
 import {withRouter} from 'react-router-dom';
 
-const history = useHistory();
+
 
 function SingUp() {
 
@@ -30,7 +30,7 @@ function SingUp() {
          axios.post('/addMember',qs.stringify(member))
          .then((result)=>{
             console.log(result);
-            history.push('/');
+            
             })
          .catch((err)=>{console.log(err)})
     }
