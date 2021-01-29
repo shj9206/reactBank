@@ -20,7 +20,7 @@ export const register = async (ctx) => {
         return;
     }
 
-    const { username, password } = ctx.request.body;
+    const { username, password, email } = ctx.request.body;
     try {
         // username  이 이미 존재하는지 확인
         const exists = await User.findByUsername(username);
@@ -29,7 +29,7 @@ export const register = async (ctx) => {
             return;
         }
 
-        const user = new User({ username });
+        const user = new User({ username, email });
         await user.setPassword(password); // 비밀번호 설정(Hashcode - 암호화)
         await user.save(); // 데이터베이스에 저장
 
