@@ -24,7 +24,7 @@ const LoginForm = ({ history }) => {
                 form: 'login',
                 key: name,
                 value,
-            }),
+            })
         );
     };
 
@@ -62,7 +62,7 @@ const LoginForm = ({ history }) => {
 
     useEffect(() => {
         if (user) {
-            history.push('/');
+            history.push('/Main');
             try {
                 localStorage.setItem('user', JSON.stringify(user));
             } catch (e) {
@@ -71,7 +71,14 @@ const LoginForm = ({ history }) => {
         }
     }, [history, user]);
 
-    return <LogInForm form={form} onChange={onChange} onSubmit={onSubmit} error={error} />;
+    return (
+        <LogInForm
+            form={form}
+            onChange={onChange}
+            onSubmit={onSubmit}
+            error={error}
+        />
+    );
 };
 
 export default withRouter(LoginForm);

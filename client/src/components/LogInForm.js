@@ -20,7 +20,7 @@ const LogInForm = ({ form, onChange, onSubmit, error }) => {
                 </h3>
                 <h3>BANK</h3>
                 <p className="create-id text-center">
-                    아직 계정이 없으십니까? <a href="/signUp">가입하기</a>
+                    아직 계정이 없으십니까? <a href="/SignUp">가입하기</a>
                 </p>
 
                 <TextField

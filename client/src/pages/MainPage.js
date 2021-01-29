@@ -1,7 +1,8 @@
 import React from 'react';
+import Main from '../components/Main';
 
 const MainPage = () => {
-    return <div>Main 페이지</div>;
+    return <Main />;
 };
 
 export default MainPage;
