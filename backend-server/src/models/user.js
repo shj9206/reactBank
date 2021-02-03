@@ -1,7 +1,8 @@
 /* User schema, model 생성 */
-import mongoose, { Schema } from 'mongoose';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
 const UserSchema = new Schema({
     username: String,
@@ -47,8 +48,8 @@ UserSchema.methods.generateToken = function () {
 
 /* static 메서드 - 모델에서 바로 사용할 수 있는 함수 */
 UserSchema.statics.findByUsername = function (username) {
-    return this.findOne({ username });
+    return this.findOne({ username: username });
 };
 
 const User = mongoose.model('User', UserSchema);
-export default User;
+module.exports = User;

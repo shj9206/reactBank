@@ -29,7 +29,6 @@ const SingUpForm = ({ form, onChange, onSubmit, error }) => {
             <div className="form-group">
                 <TextField
                     autoComplete="new-password"
-                    id="standard-basic"
                     label="Password"
                     name="password"
                     onChange={onChange}
@@ -40,7 +39,6 @@ const SingUpForm = ({ form, onChange, onSubmit, error }) => {
 
             <div className="form-group">
                 <TextField
-                    id="standard-basic"
                     label="Password Check"
                     name="passwordConfirm"
                     onChange={onChange}
@@ -50,12 +48,10 @@ const SingUpForm = ({ form, onChange, onSubmit, error }) => {
             </div>
             <div className="form-group">
                 <TextField
-                    id="standard-basic"
                     label="Email"
                     name="email"
                     onChange={onChange}
                     value={form.email}
-                    type="email"
                 />
             </div>
             {error && <ErrorMessage>{error}</ErrorMessage>}

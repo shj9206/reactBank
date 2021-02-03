@@ -1,11 +1,9 @@
-import Router from 'koa-router';
-import * as authCtrl from './auth.ctrl';
+const router = require('express').Router();
+const routerCtrl = require('./auth.ctrl');
 
-const auth = new Router();
+router.post('/register', routerCtrl.register);
+router.post('/login', routerCtrl.login);
+router.get('/check', routerCtrl.check);
+router.post('/logout', routerCtrl.logout);
 
-auth.post('/register', authCtrl.register);
-auth.post('/login', authCtrl.login);
-auth.get('/check', authCtrl.check);
-auth.post('/logout', authCtrl.logout);
-
-export default auth;
+module.exports = router;

@@ -1,49 +1,51 @@
 /* 회원 관련 API */
-import Joi from '@hapi/joi';
-import User from '../../models/user';
+const Joi = require('@hapi/joi'); // import Joi from '@hapi/joi';
+const User = require('../../models/user');
 
 /* 회원 가입 : POST /api/auth/register */
 // {
 //     username: 'velopert',
 //     password: 'mypass123'
 // }
-export const register = async (ctx) => {
-    // Request Body 검증하기
+exports.register = async (req, res) => {
+    // req Body 검증하기
     const schema = Joi.object().keys({
         username: Joi.string().alphanum().min(3).max(20).required(),
         password: Joi.string().required(),
+        email: Joi.string().required(),
     });
-    const result = schema.validate(ctx.request.body);
+    const result = schema.validate(req.body);
     if (result.error) {
-        ctx.status = 400;
-        ctx.body = result.error;
+        res.status(400);
+        res.send(result.error);
         return;
     }
 
-    const { username, password, email } = ctx.request.body;
+    const { username, password, email } = req.body;
     try {
         // username  이 이미 존재하는지 확인
         const exists = await User.findByUsername(username);
         if (exists) {
-            ctx.status = 409; // Conflict(이미 존재하는 계정)
+            res.status(409); // Conflict(이미 존재하는 계정)
             return;
         }
 
         const user = new User({ username, email });
+        console.log(email);
         await user.setPassword(password); // 비밀번호 설정(Hashcode - 암호화)
         await user.save(); // 데이터베이스에 저장
 
-        ctx.body = user.serialize();
+        res.send(user.serialize());
 
         const token = user.generateToken();
 
         /* 생성한 토큰을 cookie에 담아서 사용하는 방식 */
-        ctx.cookies.set('access_token', token, {
-            maxAge: 1000 * 60 * 60 * 24 * 7, // 7일
+        res.cookie('access_token', token, {
+            maxAge: 1000 * 60 * 60 * 24 * 7,
             httpOnly: true,
         });
     } catch (e) {
-        ctx.throw(500, e);
+        res.throw(500, e);
     }
 };
 
@@ -52,12 +54,13 @@ export const register = async (ctx) => {
 //     username: 'velopert',
 //     password: 'mypass123'
 // }
-export const login = async (ctx) => {
-    const { username, password } = ctx.request.body;
+exports.login = async (req, res, next) => {
+    const username = req.body.username;
+    const password = req.body.password;
 
     // username, password 가 없으면 에러 처리
     if (!username || !password) {
-        ctx.status = 401; // Unauthorized
+        res.response.status = 401; // Unauthorized
         return;
     }
 
@@ -65,41 +68,54 @@ export const login = async (ctx) => {
         const user = await User.findByUsername(username);
         // 계정이 존재하지 않으면 에러 처리
         if (!user) {
-            ctx.status = 401;
+            res.status(401).end();
             return;
         }
         const valid = await user.checkPassword(password);
         // 잘못된 비밀번호
         if (!valid) {
-            ctx.status = 402;
+            res.status(402).end();
             return;
         }
-        ctx.body = user.serialize();
+
+        req.session.user = user;
+        console.log('auth.ctrl - 로그인');
+        console.log(req.session.user);
+
+        // req.session.save(function () {
+        //     res.redirect('/');
+        // });
 
         const token = user.generateToken();
 
         /* 생성한 토큰을 cookie에 담아서 사용하는 방식 */
-        ctx.cookies.set('access_token', token, {
+        res.cookie('access_token', token, {
             maxAge: 1000 * 60 * 60 * 24 * 7, // 7일
             httpOnly: true,
         });
+        res.send(user.serialize());
     } catch (e) {
-        ctx.throw(500, e);
+        console.log(e.message);
     }
 };
 
 /* 회원 정보 체크 : GET /api/auth/check */
-export const check = async (ctx) => {
-    const { user } = ctx.state;
+exports.check = async (req, res) => {
+    const user = req.session.user;
+    console.log('auth.ctrl - 회원정보체크');
+    console.log(user);
     if (!user) {
-        ctx.status = 401;
+        res.status(401).end();
         return;
     }
-    ctx.body = user;
+    res.send(user);
 };
 
 /* 로그아웃 : POST /api/auth/logut */
-export const logout = async (ctx) => {
-    ctx.cookies.set('access_token'); //기존 cookie 삭제
-    ctx.status = 204; //No Content
+exports.logout = async (req, res) => {
+    req.session.destroy(function (err) {
+        // delete session
+    });
+    res.clearCookie('access_token'); //기존 cookie 삭제
+    res.status(204).end(); //No Content
 };

@@ -1,12 +1,9 @@
 /* route 모듈화 */
-import Router from 'koa-router';
-import posts from './posts';
-import auth from './auth';
+const express = require('express');
+const router = express.Router();
+const auth = require('./auth/index');
 
-const api = new Router();
-
-api.use('/posts', posts.routes());
-api.use('/auth', auth.routes());
+router.use('/auth', auth);
 
 /* route export */
-export default api;
+module.exports = router;
