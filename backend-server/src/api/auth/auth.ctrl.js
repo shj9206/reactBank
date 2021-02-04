@@ -26,7 +26,7 @@ exports.register = async (req, res) => {
         // username  이 이미 존재하는지 확인
         const exists = await User.findByUsername(username);
         if (exists) {
-            res.status(409); // Conflict(이미 존재하는 계정)
+            res.status(409).end(); // Conflict(이미 존재하는 계정)
             return;
         }
 
@@ -34,8 +34,7 @@ exports.register = async (req, res) => {
         console.log(email);
         await user.setPassword(password); // 비밀번호 설정(Hashcode - 암호화)
         await user.save(); // 데이터베이스에 저장
-
-        res.send(user.serialize());
+        req.session.user = user;
 
         const token = user.generateToken();
 
@@ -44,6 +43,8 @@ exports.register = async (req, res) => {
             maxAge: 1000 * 60 * 60 * 24 * 7,
             httpOnly: true,
         });
+
+        res.send(user.serialize());
     } catch (e) {
         res.throw(500, e);
     }
@@ -54,27 +55,33 @@ exports.register = async (req, res) => {
 //     username: 'velopert',
 //     password: 'mypass123'
 // }
-exports.login = async (req, res, next) => {
+exports.login = async (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
 
     // username, password 가 없으면 에러 처리
     if (!username || !password) {
-        res.response.status = 401; // Unauthorized
-        return;
+        if (!username) {
+            res.status(600).end(); // Unauthorized
+            return;
+        }
+        if (!password) {
+            res.status(601).end(); // 비밀번호를 입력해주세요
+            return;
+        }
     }
 
     try {
         const user = await User.findByUsername(username);
         // 계정이 존재하지 않으면 에러 처리
         if (!user) {
-            res.status(401).end();
+            res.status(602).end();
             return;
         }
         const valid = await user.checkPassword(password);
         // 잘못된 비밀번호
         if (!valid) {
-            res.status(402).end();
+            res.status(603).end();
             return;
         }
 

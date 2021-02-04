@@ -9,6 +9,7 @@ const api = require('./api/index');
 const jwtMiddleware = require('./lib/jwtMiddleware');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
+const path = require('path');
 
 /* =======================
     Connect to MongoDB
@@ -31,7 +32,9 @@ mongoose
 ==========================*/
 const app = express();
 
-/* router 적용전에 body-Parser 적용 */
+/* =======================
+       ROUTE SETTING
+==========================*/
 app.use(bodyParser.urlencoded({ extended: true })); // parse application/x-www-form-urlencoded
 app.use(bodyParser.json()); // parse application/json
 app.use(cookieParser());
@@ -47,13 +50,19 @@ app.use(
     }),
 );
 
-/* =======================
-       ROUTE SETTING
-==========================*/
-app.use('/api', api);
-app.use(jwtMiddleware);
+app.use(express.static(path.join(__dirname, '../../client/build')));
 
-//app.use(express.static(path.join(__dirname, '../../client/build')));
+app.get('/', function (req, res) {
+    res.sendFile(path.join(__dirname, '../../client/build/index.html'));
+});
+
+app.get('/SignUp', function (req, res) {
+    res.sendFile(path.join(__dirname, '../../client/build/index.html'));
+});
+
+app.use('/api', api);
+
+app.use(jwtMiddleware);
 
 /* =======================
         SERVER OPEN
