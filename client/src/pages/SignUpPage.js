@@ -2,7 +2,15 @@ import React from 'react';
 import SignUpBox from '../containers/auth/SignUpBox';
 
 const SignUpPage = () => {
-    return <SignUpBox />;
+    return (
+        <>
+            <div className="outer">
+                <div className="inner">
+                    <SignUpBox />
+                </div>
+            </div>
+        </>
+    );
 };
 
 export default SignUpPage;
