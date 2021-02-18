@@ -35,6 +35,9 @@ const Header = ({ user, onLogout }) => {
                                 <NavDropdown.Item as={Link} to="/BankAdd">
                                     은행등록
                                 </NavDropdown.Item>
+                                <NavDropdown.Item as={Link} to="/Account">
+                                    계좌등록
+                                </NavDropdown.Item>
                             </NavDropdown>
                         )}
                     </Nav>

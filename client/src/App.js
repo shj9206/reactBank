@@ -10,6 +10,7 @@ import MyAccountPage from './pages/MyAccountPage';
 import BankTransferPage from './pages/BankTransferPage';
 import BankAddPage from './pages/BankAddPage';
 import HeaderContainer from './containers/common/HeaderContainer';
+import AccountPage from './pages/AccountPage';
 
 const App = () => {
     return (
@@ -25,6 +26,7 @@ const App = () => {
                     <Route path="/MyAccount" component={MyAccountPage} />
                     <Route path="/BankTransfer" component={BankTransferPage} />
                     <Route path="/BankAdd" component={BankAddPage} />
+                    <Route path="/Account" component={AccountPage} />
                 </Switch>
             </div>
         </Router>
