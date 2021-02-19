@@ -1,14 +1,18 @@
 import React from 'react';
-import BankTemplate from '../components/bank/BankTemplate';
 import AccountHeadContainer from '../containers/account/AccountHeadContainer';
 import AccountListContainer from '../containers/account/AccountListContainer';
 
 const AccountPage = () => {
     return (
-        <BankTemplate>
-            <AccountHeadContainer />
-            <AccountListContainer />
-        </BankTemplate>
+        <>
+            <div className="outer">
+                <div className="inner2">
+                    <AccountHeadContainer />
+                    <AccountListContainer />
+                </div>
+            </div>
+        </>
+       
     );
 };
 

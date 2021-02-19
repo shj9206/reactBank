@@ -2,11 +2,11 @@ import { useSelector } from 'react-redux';
 import AccountHead from '../../components/account/AccountHead';
 
 const AccountHeadContainer = () => {
-    const { banks } = useSelector(({ banks }) => ({
-        banks: banks.banks,
+    const { accounts } = useSelector(({ accounts }) => ({
+        accounts: accounts.accounts,
     }));
 
-    return <AccountHead banks={banks} />;
+    return <AccountHead accounts={accounts} />;
 };
 
 export default AccountHeadContainer;

@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const AccountSchema = new Schema({
     bankname: String,
     accountNo : String,
+    
 });
 
 /* static 메서드 - 모델에서 바로 사용할 수 있는 함수 */

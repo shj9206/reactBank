@@ -25,12 +25,12 @@ const AccountHeadBlock = styled.div`
     }
 `;
 
-function AccountHead({ banks }) {
+function AccountHead({ accounts }) {
   
     return (
         <AccountHeadBlock>
                <div className="tasks-left">
-                나의 계좌 : {banks ? banks.length : 0}
+                나의 계좌 : {accounts ? accounts.length : 0}
             </div>
         </AccountHeadBlock>
     );

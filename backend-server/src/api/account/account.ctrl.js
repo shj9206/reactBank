@@ -34,21 +34,21 @@ exports.register = async (req, res) => {
     }
 };
 
-/* 은행 목록 조회 : GET /api/bank/bankList */
+/* 은행 계좌 조회 : GET /api/account/accountList */
 exports.list = async (req, res) => {
     try {
-        const banks = await Bank.find({}).lean().exec();
-        res.send(banks);
+        const accounts = await Account.find({}).lean().exec();
+        res.send(accounts);
     } catch (e) {
         res.throw(500, e);
     }
 };
 
-/* 은행 삭제 : DELETE /api/bank/:bankname */
+/* 은행 삭제 : DELETE /api/account/:accountname */
 exports.remove = async (req, res) => {
-    const { bankId } = req.params;
+    const { accountsId } = req.params;
     try {
-        await Bank.findByIdAndDelete(bankId).exec();
+        await Account.findByIdAndDelete(accountsId).exec();
         res.status(204).end();
     } catch (e) {
         res.throw(500, e);

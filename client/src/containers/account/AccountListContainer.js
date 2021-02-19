@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { listBanks } from '../../modules/bank/banks';
-import { removeBank } from '../../lib/api/bank';
-import BankList from '../../components/bank/BankList';
+import { listAccounts } from '../../modules/account/accounts';
+import { removeAccount } from '../../lib/api/account';
+
+import AccountList from '../../components/account/AccountList';
 
 import { addAccount, changeField, initialize } from '../../modules/account/accountAdd';
 import { withRouter } from 'react-router-dom';
@@ -14,11 +15,11 @@ const AccountListContainer = ({ history }) => {
     const [open, setOpen] = useState(false);
     const [accountNoRegisterError, setError] = useState(null);
     const [modal, setModal] = useState(false);
-    const { form, accounts, error, loading, accountNo, accountNoError } = useSelector(
+    const { form, accounts, error, loading, accountNoError } = useSelector(
         ({ accounts, loading, accountAdd }) => ({
             accounts: accounts.accounts,
             error: accounts.error,
-            loading: loading['banks/LIST_BANKS'],
+            loading: loading['accounts/LIST_ACCOUNTS'],
             form: accountAdd.add,
             accountNo: accountAdd.accountNo,
             accountNoError: accountAdd.accountNoError,
@@ -26,17 +27,27 @@ const AccountListContainer = ({ history }) => {
     );
 
     useEffect(() => {
-        dispatch(listBanks());
+        dispatch(listAccounts());
     }, [dispatch]);
 
     const onRemove = async (bankId) => {
         try {
-            await removeBank(bankId);
-            dispatch(listBanks());
+            await removeAccount(bankId);
+            dispatch(listAccounts());
         } catch (e) {
             console.log(e);
         }
     };
+
+    const onTransfer = async (accountsId) => {
+        try {
+            await removeAccount(accountsId);
+            dispatch(listAccounts());
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
     useEffect(() => { 
         if (accountNoError) {
             console.log('계좌 등록 오류 발생');
@@ -69,7 +80,7 @@ const AccountListContainer = ({ history }) => {
         const { bankname, accountNo } = form;
         dispatch(addAccount({ bankname , accountNo }));
         dispatch(initialize('add'));
-        dispatch(listBanks());
+        dispatch(listAccounts());
     };
 
     const onToggle = () => {
@@ -83,17 +94,18 @@ const AccountListContainer = ({ history }) => {
 
     const onConfirm = () => {
         setModal(false);
-        dispatch(listBanks());
+        dispatch(listAccounts());
     };
 
     return (
         <>
-            {/* <BankList
+            <AccountList
                 loading={loading}
                 error={error}
-                banks={banks}
+                accounts={accounts}
                 onRemove={onRemove}
-            /> */}
+                onTransfer={onTransfer}
+            />
             <AccountAdd
                 form={form}
                 open={open}

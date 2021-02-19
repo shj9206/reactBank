@@ -8,4 +8,4 @@ export const register = ({ bankname, accountNo }) =>
 export const listAccounts = () => client.get('/api/account/accountList');
 
 /* account 삭제 */
-export const removeAccount = (bankId) => client.delete(`/api/account/${bankId}`);
+export const removeAccount = (accountsId) => client.delete(`/api/account/${accountsId}`);
