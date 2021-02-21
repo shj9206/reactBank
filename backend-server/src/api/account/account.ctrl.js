@@ -44,6 +44,16 @@ exports.list = async (req, res) => {
     }
 };
 
+exports.detail = async (req, res) => {
+    const { accountsId } = req.params;
+    try {
+        const account = await Account.findById(accountsId).exec();
+        res.send(account);
+    } catch (e) {
+        res.throw(500, e);
+    }
+};
+
 /* 은행 삭제 : DELETE /api/account/:accountname */
 exports.remove = async (req, res) => {
     const { accountsId } = req.params;

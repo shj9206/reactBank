@@ -6,12 +6,13 @@ import { removeAccount } from '../../lib/api/account';
 import AccountList from '../../components/account/AccountList';
 
 import { addAccount, changeField, initialize } from '../../modules/account/accountAdd';
-import { withRouter } from 'react-router-dom';
+import { useHistory, withRouter } from 'react-router-dom';
 import AccountAdd from '../../components/account/AccountAdd';
 import BankErrorModal from '../../components/bank/BankErrorModal';
 
-const AccountListContainer = ({ history }) => {
+const AccountListContainer = ({ hist }) => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const [open, setOpen] = useState(false);
     const [accountNoRegisterError, setError] = useState(null);
     const [modal, setModal] = useState(false);
@@ -30,9 +31,9 @@ const AccountListContainer = ({ history }) => {
         dispatch(listAccounts());
     }, [dispatch]);
 
-    const onRemove = async (bankId) => {
+    const onRemove = async (accountId) => {
         try {
-            await removeAccount(bankId);
+            await removeAccount(accountId);
             dispatch(listAccounts());
         } catch (e) {
             console.log(e);
@@ -41,8 +42,7 @@ const AccountListContainer = ({ history }) => {
 
     const onTransfer = async (accountsId) => {
         try {
-            await removeAccount(accountsId);
-            dispatch(listAccounts());
+            await history.push("/Transfer/"+accountsId)
         } catch (e) {
             console.log(e);
         }

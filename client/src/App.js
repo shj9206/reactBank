@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 
-import BankTransferPage from './pages/BankTransferPage';
+import TransferPage from './pages/TransferPage';
 import BankAddPage from './pages/BankAddPage';
 import HeaderContainer from './containers/common/HeaderContainer';
 import AccountPage from './pages/AccountPage';
@@ -23,7 +23,7 @@ const App = () => {
                     <Route path="/SignUp" component={SignUpPage} />
                     
                    
-                    <Route path="/BankTransfer" component={BankTransferPage} />
+                    <Route path="/Transfer/:id" component={TransferPage} />
                     <Route path="/BankAdd" component={BankAddPage} />
                     <Route path="/Account" component={AccountPage} />
                 </Switch>
