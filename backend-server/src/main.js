@@ -60,6 +60,13 @@ app.get('/SignUp', function (req, res) {
     res.sendFile(path.join(__dirname, '../../client/build/index.html'));
 });
 
+app.get('/Account', function (req, res) {
+    res.sendFile(path.join(__dirname, '../../client/build/index.html'));
+});
+app.get('/Transfer/:id', function (req, res) {
+    res.sendFile(path.join(__dirname, '../../client/build/index.html'));
+});
+
 app.use('/api', api);
 
 app.use(jwtMiddleware);

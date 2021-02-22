@@ -5,6 +5,8 @@ const Schema = mongoose.Schema;
 const AccountSchema = new Schema({
     bankname: String,
     accountNo : String,
+    receiveAccountNo : String,
+    cash : Number,
     
 });
 

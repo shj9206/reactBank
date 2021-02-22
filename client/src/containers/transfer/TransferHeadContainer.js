@@ -18,13 +18,12 @@ const TransferHeadContainer = (props) => {
         dispatch(listAccounts());
     }, [dispatch]);
 
-    console.log({accounts})
-    console.log(props.accountsId)
+   
     
     const findAccount = accounts.find(function (detail) {
         return detail._id === props.accountsId
     });
-    console.log(findAccount)
+    
 
     
 

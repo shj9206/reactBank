@@ -12,3 +12,7 @@ export const detailAccount = (accountsId) => client.get(`/api/account/accountDet
 
 /* account 삭제 */
 export const removeAccount = (accountsId) => client.delete(`/api/account/${accountsId}`);
+
+/* accuont 송금 */
+export const transfer = ({ bankname, accountNo, receiveAccountNo, cash }) =>
+    client.post('/api/account/transfer', { bankname, accountNo, receiveAccountNo, cash });

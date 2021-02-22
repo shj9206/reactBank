@@ -64,3 +64,45 @@ exports.remove = async (req, res) => {
         res.throw(500, e);
     }
 };
+
+exports.transfer = async (req, res) => {
+    
+    const schema = Joi.object().keys({
+        bankname: Joi.string().required(),
+        accountNo: Joi.string().required(),
+        receiveAccountNo : Joi.string().required(),
+        cash : Joi.number().required(),
+    });
+    const result = schema.validate(req.body);
+    if (result.error) {
+        res.status(400).end();
+        return;
+    }
+   
+    const {bankname, accountNo, receiveAccountNo, cash } = req.body;
+    
+    try {
+        // accountNo  이 이미 존재하는지 확인
+        const existsSend = await Account.findByAccountNo(accountNo)
+        const existsReceive = await Account.find({
+
+            $and : [
+            {"bankname":bankname},
+            {"accountNo": receiveAccountNo}
+            ]
+          })
+       
+            await Account.updateMany(
+                {accountNo : receiveAccountNo, bankname : bankname },
+                {$inc: { cash: cash }}
+            );
+            await Account.updateOne(
+                {accountNo : accountNo },
+                {$inc: { cash: -cash }}
+            );
+            res.status(204).end();
+           
+    } catch (e) {
+        res.throw(500, e);
+    }
+};

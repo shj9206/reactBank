@@ -35,9 +35,9 @@ function TransferHead({ accounts, error, loading }) {
                 <div>
                     
                         <div className="tasks-left">
-                        나의 은행 : {accounts.bankname}<br/>
+                        나의 은행 : {accounts.bankname}은행<br/>
                         나의 계좌 : {accounts.accountNo}<br/>
-                        나의 잔액 : {accounts.cash}<br/>
+                        나의 잔액 : {accounts.cash}원<br/>
                         </div> 
                         
                     
