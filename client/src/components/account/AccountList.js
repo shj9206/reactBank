@@ -7,10 +7,10 @@ const AccountListBlock = styled.div`
     padding: 20px 32px;
     padding-bottom: 48px;
     overflow-y: auto;
-    // background: gray;  사이즈 조정이 잘 되고 있는지 확인하기 위한 임시 스타일 
+    
 `;
 
-const AccountList = ({ loading, error, accounts, onRemove, onTransfer }) => {
+const AccountList = ({ loading, error, accounts, onRemove, onTransfer, onAccountInfor }) => {
     if (error) {
         return <AccountListBlock>Error 발생 ~ !</AccountListBlock>;
     }
@@ -24,6 +24,7 @@ const AccountList = ({ loading, error, accounts, onRemove, onTransfer }) => {
                             key={account._id}
                             onRemove={onRemove}
                             onTransfer={onTransfer}
+                            onAccountInfor={onAccountInfor}
                         />
                     ))}
                 </div>

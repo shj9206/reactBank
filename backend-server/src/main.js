@@ -10,6 +10,7 @@ const jwtMiddleware = require('./lib/jwtMiddleware');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const path = require('path');
+const Schema = mongoose.Schema;
 
 /* =======================
     Connect to MongoDB
@@ -26,6 +27,27 @@ mongoose
     .catch((e) => {
         console.error(e);
     });
+
+/* =======================
+    ref 설정
+==========================*/
+const commentSchema = mongoose.Schema(
+    {
+        writer : {
+            type : Schema.Types.ObjectId,
+            ref : 'users',
+        },
+      
+
+    },
+    {timestamps : true} /* CreateDate가 표시 됨 */,
+);
+
+const Comment = mongoose.model('comment',commentSchema);
+
+module.exports = {Comment};
+
+
 
 /* =======================
     EXPRESS CONFIGURATION

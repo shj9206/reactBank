@@ -1,4 +1,5 @@
 /* Bank schema, model 생성 */
+const { date } = require('@hapi/joi');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -7,6 +8,8 @@ const AccountSchema = new Schema({
     accountNo : String,
     receiveAccountNo : String,
     cash : Number,
+    createDate : Date,
+    
     
 });
 

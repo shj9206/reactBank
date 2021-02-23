@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { MdDelete } from 'react-icons/md';
 import { IoLogoBitcoin } from 'react-icons/io'
+import { IoInformationCircleOutline } from 'react-icons/io5'
 
 const Remove = styled.div`
     display: flex;
@@ -28,6 +29,19 @@ const Transfer = styled.div`
     display: none;
 `;
 
+const Infor = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #dee2e6;
+    font-size: 24px;
+    cursor: pointer;
+    &:hover {
+        color: green;
+    }
+    display: none;
+`;
+
 const AccountItemBlock = styled.div`
     display: flex;
     align-items: center;
@@ -41,6 +55,10 @@ const AccountItemBlock = styled.div`
             
         }
         ${Transfer} {
+            display: initial;
+            
+        }
+        ${Infor} {
             display: initial;
             
         }
@@ -63,12 +81,16 @@ const TextBankName = styled.div`
 
 
 
-function AccountItem({ account, onRemove, onTransfer }) {
+function AccountItem({ account, onRemove, onTransfer, onAccountInfor }) {
     const { _id, bankname, accountNo, cash } = account;
     return (
         <AccountItemBlock>
             <TextBankName>{bankname}<br/>{accountNo}<br/>{cash}원</TextBankName>
             
+            <Infor onClick={() => onAccountInfor(_id)}>
+                <IoInformationCircleOutline />
+            </Infor>
+
             <Transfer onClick={() => onTransfer(_id)}>
                 <IoLogoBitcoin />
             </Transfer>

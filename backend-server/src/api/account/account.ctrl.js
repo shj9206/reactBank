@@ -2,13 +2,26 @@
 const Joi = require('@hapi/joi'); // import Joi from '@hapi/joi';
 const Account = require('../../models/account');
 
+        
 
 exports.register = async (req, res) => {
+        
+    //날짜 구하기
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = date.getMonth();
+        var today = date.getDate();
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var seconds = date.getSeconds();
+        var createDate = new Date(Date.UTC(year, month, today, hours, minutes, seconds))
+
     // req Body 검증하기
     const schema = Joi.object().keys({
         bankname: Joi.string().required(),
         accountNo: Joi.string().required(),
     });
+    
     const result = schema.validate(req.body);
     if (result.error) {
         res.status(400).end();
@@ -16,7 +29,8 @@ exports.register = async (req, res) => {
     }
 
     const { accountNo,bankname} = req.body;
-    console.log(accountNo, bankname);
+    
+    
     try {
         // accountNo  이 이미 존재하는지 확인
         const exists = await Account.findByAccountNo(accountNo);
@@ -24,9 +38,10 @@ exports.register = async (req, res) => {
             res.status(409).end(); // Conflict(이미 존재하는 계좌)
             return;
         }
+        
 
-        const account = new Account({ accountNo , bankname });
-        console.log(accountNo, bankname);
+        const account = new Account({ accountNo , bankname,createDate });
+        
         await account.save(); // 데이터베이스에 저장
         res.status(204).end();
     } catch (e) {

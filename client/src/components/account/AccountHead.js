@@ -9,8 +9,9 @@ const AccountHeadBlock = styled.div`
     border-bottom: 1px solid #e9ecef;
     h2 {
         margin: 0;
-        font-size: 24px;
+        font-size: 20px;
         color: #343a40;
+        font-weight: bold;
     }
     .day {
         margin-top: 4px;
@@ -29,6 +30,9 @@ function AccountHead({ accounts }) {
   
     return (
         <AccountHeadBlock>
+                <h2>
+                    즐거운 금융 생활
+                 </h2>   
                <div className="tasks-left">
                 나의 계좌 : {accounts ? accounts.length : 0}
             </div>

@@ -48,6 +48,14 @@ const AccountListContainer = ({ hist }) => {
         }
     };
 
+    const onAccountInfor = async (accountsId) => {
+        try {
+            await history.push("/AccountInfor/"+accountsId)
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
     useEffect(() => { 
         if (accountNoError) {
             console.log('계좌 등록 오류 발생');
@@ -84,7 +92,7 @@ const AccountListContainer = ({ hist }) => {
     };
 
     const onToggle = () => {
-        setOpen(!open);
+        setOpen(!open);                    
         dispatch(initialize('add'));
     };
 
@@ -105,8 +113,9 @@ const AccountListContainer = ({ hist }) => {
                 accounts={accounts}
                 onRemove={onRemove}
                 onTransfer={onTransfer}
+                onAccountInfor={onAccountInfor}
             />
-            <AccountAdd
+            <AccountAdd 
                 form={form}
                 open={open}
                 onChange={onChange}
