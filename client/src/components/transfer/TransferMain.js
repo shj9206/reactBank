@@ -64,7 +64,7 @@ function TransferMain({form, onChange, onBack, onSend}) {
                 <p />
 
                 <Button color="primary" onClick={onSend}>송금</Button>
-                <Button color="secondary" onClick={onBack}>취소</Button>
+                {/* <Button color="secondary" onClick={onBack}>취소</Button> */}
             </form>
             
         </TransferHeadBlock>

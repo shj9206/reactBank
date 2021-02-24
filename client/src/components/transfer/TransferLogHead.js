@@ -1,52 +1,58 @@
 import React from 'react';
 import styled from 'styled-components';
+import Button from '@material-ui/core/Button';
 
-const AccountHeadBlock = styled.div`
+const TransferLogHeadBlock = styled.div`
     padding-top: 20px;
     padding-left: 32px;
     padding-right: 32px;
     padding-bottom: 24px;
     border-bottom: 1px solid #e9ecef;
+    display : flex;
     h2 {
         margin: 0;
-        font-size: 24px;
+        font-size: 18px;
         color: #343a40;
     }
-    .day {
-        margin-top: 4px;
-        color: #868e96;
-        font-size: 21px;
+    .button {
+        font-size: 15px;
+        text-align : right;
+        
     }
     .tasks-left {
-        color: #20c997;
-        font-size: 18px;
-        margin-top: 10px;
-        font-weight: bold;
+        font-size: 13px;
+        margin-top: 35px;
+        border-bottom: 1px solid #e9ecef;
     }
 `;
 
-function TransferHead({ accounts, error, loading }) {
+function TransferLogHead({ accounts, error, loading, onTransfer }) {
+    
     
     
 
     return (
-        <AccountHeadBlock>
+        <TransferLogHeadBlock>
             {!loading && accounts && (
                 <div>
                     
                         <div className="tasks-left">
-                        나의 은행 : {accounts.bankname}은행<br/>
-                        나의 계좌 : {accounts.accountNo}<br/>
-                        나의 잔액 : {accounts.cash}원<br/>
+                        {accounts.bankname}은행{accounts.accountNo}
                         </div> 
+                        <div className="h2">
+                            {accounts.cash}원
+                        </div>
+                        <Button variant="contained" color="primary" className="button" onClick={onTransfer}>
+                            송금
+                        </Button>
                         
                     
                
             </div>
             )}
            
-        </AccountHeadBlock>
+        </TransferLogHeadBlock>
     );
 }
 
-export default React.memo(TransferHead);
+export default React.memo(TransferLogHead);

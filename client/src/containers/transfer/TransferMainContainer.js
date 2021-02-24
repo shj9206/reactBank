@@ -45,7 +45,6 @@ const TransferMainContainer = (props) => {
         e.preventDefault();
         const {  bankname, receiveAccountNo, cash } = form;
         const accountNo = findAccount.accountNo;
-        console.log("bankname :" + bankname+ "accountNo :" + accountNo+ "receiveAccountNo :" +receiveAccountNo+ "cash :" +cash );
         dispatch(transferAccount({ bankname , accountNo, receiveAccountNo, cash }));
         dispatch(initialize('transfer'));
         

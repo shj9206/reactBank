@@ -28,6 +28,16 @@ const TransferLogHeadContainer = (props) => {
         }
     };
 
+    const onTransfer = async () => {
+        try {
+            await history.push("/Transfer/"+props.accountsId)
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+   
+
     const findAccount = accounts.find(function (detail) {
         return detail._id === props.accountsId
     });
@@ -37,6 +47,8 @@ const TransferLogHeadContainer = (props) => {
                 error={error}
                 accounts={findAccount}
                 onBack={onBack} 
+                onTransfer={onTransfer}
+                
             />;
 };
 

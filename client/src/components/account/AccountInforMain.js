@@ -81,7 +81,7 @@ function AccountInforMain({ accounts, error, loading, onBack, onTransferLog }) {
          
             )}
             <Button color="primary" onClick={onTransferLog}>거래내역</Button>
-            <Button color="secondary" onClick={onBack}>뒤로가기</Button>
+            {/* <Button color="secondary" onClick={onBack}>뒤로가기</Button> */}
            
         </AccountInforMainBlock>
     );

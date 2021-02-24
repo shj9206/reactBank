@@ -1,4 +1,5 @@
 import React from 'react';
+import BankHeaderContainer from '../containers/common/BankHeaderContainer';
 import TransferLogHeadContainer from '../containers/transfer/TransferLogHeadContainer';
 import TransferLogMainContainer from '../containers/transfer/TransferLogMainContainer';
 import { useParams } from 'react-router-dom';
@@ -15,8 +16,9 @@ const TransferLogPage = () => {
     <>
     <div className="outer">
         <div className="inner2">
+            <BankHeaderContainer accountsId={accountsId}/>
             <TransferLogHeadContainer accountsId={accountsId}/> 
-            {/* <TransferMainContainer accountsId={accountsId}/> */}
+            <TransferLogMainContainer accountsId={accountsId}/>
         </div>
     </div>
     </>

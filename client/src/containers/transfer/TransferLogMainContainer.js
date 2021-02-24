@@ -1,12 +1,17 @@
 import { useSelector } from 'react-redux';
-import TransferLogHead from '../../components/transfer/TransferLogHead';
+import TransferLogMain from '../../components/transfer/TransferLogMain';
 
-const TransferLogHeadContainer = () => {
-    const { accounts } = useSelector(({ accounts }) => ({
-        accounts: accounts.accounts,
-    }));
+const TransferLogMainContainer = () => {
+    const { accounts,  loading } = useSelector(
+        ({ accounts, loading }) => ({
+            accounts: accounts.accounts,
+            error: accounts.error,
+            loading: loading['accounts/LIST_ACCOUNTS'],
+            
+        })
+    );
 
-    return <TransferLogHead accounts={accounts} />;
+    return <TransferLogMain accounts={accounts} loading={loading} />;
 };
 
-export default TransferLogHeadContainer;
+export default TransferLogMainContainer;

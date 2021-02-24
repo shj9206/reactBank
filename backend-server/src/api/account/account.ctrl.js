@@ -1,6 +1,8 @@
 /* 은행 등록 관련 API */
 const Joi = require('@hapi/joi'); // import Joi from '@hapi/joi';
+
 const Account = require('../../models/account');
+const TransferLog = require('../../models/transferLog');
 
         
 
@@ -81,6 +83,16 @@ exports.remove = async (req, res) => {
 };
 
 exports.transfer = async (req, res) => {
+
+    //날짜 구하기
+    var date = new Date();
+    var year = date.getFullYear();
+    var month = date.getMonth();
+    var today = date.getDate();
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var seconds = date.getSeconds();
+    var transferDate = new Date(Date.UTC(year, month, today, hours, minutes, seconds))
     
     const schema = Joi.object().keys({
         bankname: Joi.string().required(),
@@ -115,7 +127,11 @@ exports.transfer = async (req, res) => {
                 {accountNo : accountNo },
                 {$inc: { cash: -cash }}
             );
-            res.status(204).end();
+        
+        //transferLog feild 생성 및 저장    
+        const transferLog = new TransferLog({ accountNo , bankname, receiveAccountNo, cash ,transferDate });
+        
+            await transferLog.save(); // 데이터베이스에 저장
            
     } catch (e) {
         res.throw(500, e);
