@@ -79,11 +79,19 @@ const TextBankName = styled.div`
 
 
 
-function TransferLogItem({ account }) {
-    
+function TransferLogItem({ transferlog }) {
+    console.log(transferlog)
+    const { bankname, accountNo, receiveAccountNo, cash, transferDate } = transferlog;
+
     return (
         <AccountItemBlock>
-            <TextBankName>원</TextBankName>
+            <TextBankName>
+                보낸사람 : {accountNo}<br/>
+                받는은행 : {bankname}<br/>
+                받는계좌 : {receiveAccountNo}<br/>
+                금액 : {cash}<br/>
+                보낸날짜 : {transferDate}
+            </TextBankName>
             
             
 

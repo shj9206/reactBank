@@ -4,10 +4,12 @@ const router = express.Router();
 const auth = require('./auth/index');
 const bank = require('./bank');
 const account = require('./account');
+const transfer = require('./transfer');
 
 router.use('/auth', auth);
 router.use('/bank', bank);
 router.use('/account', account);
+router.use('/transfer', transfer)
 
 /* route export */
 module.exports = router;

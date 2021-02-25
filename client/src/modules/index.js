@@ -8,6 +8,7 @@ import bankAdd, { addSaga } from './bank/bankAdd';
 import accounts, { accountSaga } from './account/accounts';
 import accountAdd, { accountAddSaga } from './account/accountAdd';
 import accountTransfer, { accountTransferSaga} from './account/accountTransfer';
+import transferLog, { transferLogSaga} from './transfer/transferLog';
 const rootReducer = combineReducers({
     auth,
     loading,
@@ -17,10 +18,20 @@ const rootReducer = combineReducers({
     accounts,
     accountAdd,
     accountTransfer,
+    transferLog,
 });
 
 export function* rootSaga() {
-    yield all([authSaga(), userSaga(), banksSaga(), addSaga(), accountSaga(),accountAddSaga(), accountTransferSaga(),]);
+    yield all([
+        authSaga(), 
+        userSaga(), 
+        banksSaga(), 
+        addSaga(), 
+        accountSaga(),
+        accountAddSaga(), 
+        accountTransferSaga(),
+        transferLogSaga(),
+    ]);
 }
 
 export default rootReducer;

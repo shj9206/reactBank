@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import TransferLogItem from './TransferLogItem';
 
 
 const TransferLogMainBlock = styled.div`
@@ -10,26 +11,34 @@ const TransferLogMainBlock = styled.div`
    
 `;
 
-function TransferLogMain({ accounts, loading }) {
+function TransferLogMain({ accounts, loading, transferlogs }) {
     
     
     
 
     return (
         <TransferLogMainBlock>
-            {!loading && accounts && (
+            {!loading && accounts && transferlogs && (
+                
                 <div>
                     
-                        <div className="tasks-left">
-                        {accounts.bankname}은행{accounts.accountNo}
-                        </div> 
-                        <div className="h2">
-                            {accounts.cash}원
-                        </div>
+                {transferlogs.map((transferlog) => (
+                //    <>
+                //     {accounts.accountNo === transferlogs.accountNo
+                //     ?
+                //       <TransferLogItem
+                //         transferlog={transferlog}
+                //         key={transferlog._id}
+                //         /> 
+                //     :
+                //    "error" }
+                //    </>
+                     <TransferLogItem
+                        transferlog={transferlog}
+                        key={transferlog._id}
                         
-                        
-                    
-               
+                    />
+                ))}
             </div>
             )}
            
