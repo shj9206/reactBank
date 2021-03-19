@@ -81,12 +81,38 @@ const LoginForm = ({ history }) => {
         }
     }, [history, user]);
 
+     const responseKaKao = (res) => {
+         const { data } = this.state;
+    
+         this.setState({
+           data: res,
+         });
+    
+         fetch(`${LOGIN}/user/signin/kakao`, {
+           //백엔드에서 원하는 형태의 endpoint로 입력해서 fetch한다. 
+           method: 'GET',
+           headers: {
+             Authorization: res.response.access_token,
+             //받아오는 response객체의 access_token을 통해 유저 정보를 authorize한다. 
+           
+           },
+         })
+           .then((res) => res.json())
+           .then((res) => localStorage.setItem('token', res.token), 
+                //백엔드에서 요구하는 key 값(token)으로 저장해서 localStorage에 저장한다.
+                 //여기서 중요한것은 처음에 console.log(res)해서 들어오는 
+                 //access_token 값을 백엔드에 전달해줘서 백엔드에 저장 해두는 
+                 //절차가 있으므로 까먹지 말 것! 
+                 alert('로그인 성공하였습니다'));
+       };
+
     return (
         <LogInForm
             form={form}
             onChange={onChange}
             onSubmit={onSubmit}
             error={error}
+            responseKaKao={responseKaKao}
         />
     );
 };
