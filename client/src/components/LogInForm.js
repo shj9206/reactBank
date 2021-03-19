@@ -31,7 +31,7 @@ const KaKaoBtn = styled(KaKaoLogin)`
 
 
 
-const LogInForm = ({ form, onChange, onSubmit, error, responseKaKao }) => {
+const LogInForm = ({ form, onChange, onSubmit, error, onSuccess,onFailure }) => {
     
    
     return (
@@ -93,7 +93,8 @@ const LogInForm = ({ form, onChange, onSubmit, error, responseKaKao }) => {
                     //카카오에서 할당받은 jsKey를 입력
                     buttonText='카카오 계정으로 로그인'
                     //로그인 버튼의 text를 입력
-                    onSuccess={responseKaKao}
+                    onSuccess={onSuccess}
+                    onFailure={onFailure}
                     //성공했을때 불러올 함수로서 fetch해서 localStorage에 저장할 함수를 여기로 저장 
                     getProfile={true}
                 />
