@@ -11,27 +11,11 @@ const ErrorMessage = styled.div`
     font-size: 0.875rem;
     margin-top: 1rem;
 `;
-const KaKaoBtn = styled(KaKaoLogin)`
-  padding: 0;
-  width: 300px;
-  height: 45px;
-  line-height: 44px;
-  color: #783c00;
-  background-color: #ffeb00;
-  border: 1px solid transparent;
-  border-radius: 3px;
-  font-size: 14px;
-  font-weight: bold;
-  text-align: center;
-  cursor: pointer;
-  &:hover {
-    box-shadow: 0 0px 15px 0 rgba(0, 0, 0, 0.2);
-  }
-`;
 
 
 
-const LogInForm = ({ form, onChange, onSubmit, error, responseKaKao }) => {
+
+const LogInForm = ({ form, onChange, onSubmit, error }) => {
     
    
     return (
@@ -87,16 +71,7 @@ const LogInForm = ({ form, onChange, onSubmit, error, responseKaKao }) => {
                 <p className="forgot-password text-right">
                     Forgot <a href="#">password?</a>
                 </p>
-                    <KaKaoBtn
-                    //styled component 통해 style을 입혀 줄 예정 
-                    jsKey={'37aee25725910fccaeffb2c6c1ba880b'}
-                    //카카오에서 할당받은 jsKey를 입력
-                    buttonText='카카오 계정으로 로그인'
-                    //로그인 버튼의 text를 입력
-                    onSuccess={responseKaKao}
-                    //성공했을때 불러올 함수로서 fetch해서 localStorage에 저장할 함수를 여기로 저장 
-                    getProfile={true}
-                />
+                 
             </form>
         </div>
     );
