@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { check } from '../../modules/user';
 import LogInForm from '../../components/LogInForm';
 
+
 const LoginForm = ({ history }) => {
     const [error, setError] = useState(null);
     const dispatch = useDispatch();
@@ -34,6 +35,8 @@ const LoginForm = ({ history }) => {
         const { username, password } = form;
         dispatch(login({ username, password }));
     };
+
+    
 
     /* Component가 처음 렌더링 될 때 form 을 초기화 : 다른 페이지로부터 돌아와도 이전에 입력된 값이 남아 있는걸 방지해줌 */
     useEffect(() => {
@@ -87,6 +90,7 @@ const LoginForm = ({ history }) => {
             onChange={onChange}
             onSubmit={onSubmit}
             error={error}
+            
         />
     );
 };

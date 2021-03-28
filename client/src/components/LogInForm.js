@@ -3,6 +3,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { GrMoney } from 'react-icons/gr';
 import TextField from '@material-ui/core/TextField';
+import GoogleLogin from 'react-google-login';
 
 const ErrorMessage = styled.div`
     color: red;
@@ -10,6 +11,13 @@ const ErrorMessage = styled.div`
     font-size: 0.875rem;
     margin-top: 1rem;
 `;
+
+ const responseGoogle = (response) =>{
+    console.log(response);
+    console.log(response.profileObj);
+
+
+};
 
 const LogInForm = ({ form, onChange, onSubmit, error }) => {
     return (
@@ -63,6 +71,13 @@ const LogInForm = ({ form, onChange, onSubmit, error }) => {
                 <p className="forgot-password text-right">
                     Forgot <a href="#">password?</a>
                 </p>
+                <GoogleLogin
+                    clientId="6191335277-0kjtvciktcptqnrrjd7uspng93100g37.apps.googleusercontent.com"
+                    buttonText="Login"
+                    onSuccess={responseGoogle}
+                    onFailure={responseGoogle}
+                    cookiePolicy={'single_host_origin'}
+                />
             </form>
         </div>
     );
