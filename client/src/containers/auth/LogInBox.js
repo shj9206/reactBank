@@ -36,19 +36,7 @@ const LoginForm = ({ history }) => {
         dispatch(login({ username, password }));
     };
 
-    // Login success
-    const responseKakao = (res) => {
-        this.setState({
-            id: res.profile.id,
-            username: res.profile.properties.nickname,
-            provider: 'kakao'
-        })
-    }
-
-    // Login Fail
-     const responseFail = (err) => {
-        console.error(err);
-    }
+   
 
     /* Component가 처음 렌더링 될 때 form 을 초기화 : 다른 페이지로부터 돌아와도 이전에 입력된 값이 남아 있는걸 방지해줌 */
     useEffect(() => {
@@ -104,8 +92,7 @@ const LoginForm = ({ history }) => {
             onChange={onChange}
             onSubmit={onSubmit}
             error={error}
-            onSuccess={responseKakao}
-            onFailure={responseFail}
+            
         />
     );
 };
